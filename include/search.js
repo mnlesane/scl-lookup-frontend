@@ -207,8 +207,7 @@ function detailContract(id) {
 }
 	`;
 	$.ajax({
-//	    url: "https://api.thegraph.com/subgraphs/name/mnlesane/subgraph-contract-lookup",
-url:"https://api.thegraph.com/subgraphs/id/QmbR8g2WGSsCkHDXH3iU835gaCyqqvHqXuhhQ3bDoo4MC7",
+	    url: "https://api.thegraph.com/subgraphs/name/mnlesane/subgraph-contract-lookup",
 	    type: "POST",
 	    dataType: "json",
 	    data: JSON.stringify({query:searchQuery, variables:null}),
