@@ -31,7 +31,15 @@ function search() {
 	var list = [{}];
 	console.log('Search for "'+queryString+"'");
 	queryString = queryString.replace(/"/g,"'");
+	
+	incSubgraph = $('#search-subgraph').is(':checked');
+	incSubgraphDeployment = $('#search-subgraphDeployment').is(':checked');
+	incContract = $('#search-contract').is(':checked');
+	incContractEvent = $('#search-contractEvent').is(':checked');
+	
 	var searchQuery = `{
+	`
+	+(incContractEvent ? `
   contractEventSearch(text:"`+queryString+`") {
     id
     event
@@ -39,9 +47,13 @@ function search() {
       id
     }
   }
+  `:``)
+  +(incContract ? `
   contractSearch(text:"`+queryString+`") {
     id
   }
+  `:``)
+  +(incSubgraph ? `
   subgraphSearch(text:"`+queryString+`") {
     id
     displayName
@@ -50,6 +62,8 @@ function search() {
     codeRepository
     website
   }
+  `:``)
+  +(incSubgraphDeployment  ? `
   subgraphDeploymentSearch(text:"`+queryString+`") {
     id
     originalName
@@ -62,6 +76,7 @@ function search() {
       website
     }
   }
+  `:``)+`
 	    }`;
 	    
 	var res = 
@@ -75,19 +90,39 @@ function search() {
 	  $('#searchResults').html('');
 	  $('#searchResults').show();
 	  $('.quickSearch').show();
-	  data = e.data
-	  $.each(data.subgraphSearch,function(k,v) {
-	    renderSubgraph(v);
-	  });
-	  $.each(data.contractEventSearch,function(k,v) {
-	    renderContractEvent(v);
-	  });
-	  $.each(data.contractSearch,function(k,v) {
-	    renderContract(v);
-	  });
-	  $.each(data.subgraphDeploymentSearch,function(k,v) {
-	    renderSubgraphDeployment(v);
-	  });
+	  
+	  if(!e.hasOwnProperty('data')) {
+	    console.log(e);
+	    renderNoResults();
+	    return;
+	  } else {
+	    data = e.data;
+	  }
+	  
+	  if(data.hasOwnProperty('subgraphSearch')) {
+	    $.each(data.subgraphSearch,function(k,v) {
+	      renderSubgraph(v);
+	    });
+	  }
+	  
+	  if(data.hasOwnProperty('contractEventSearch')) {
+	    $.each(data.contractEventSearch,function(k,v) {
+	      renderContractEvent(v);
+	    });
+	  }
+	  
+	  if(data.hasOwnProperty('contractSearch')) {
+	    $.each(data.contractSearch,function(k,v) {
+	      renderContract(v);
+	    });
+	  }
+	  
+	  if(data.hasOwnProperty('subgraphDeploymentSearch')) {
+	    $.each(data.subgraphDeploymentSearch,function(k,v) {
+	      renderSubgraphDeployment(v);
+	    });
+	  }
+	  
 	  if($('#searchResults li').size() == 0) {
 	    renderNoResults();
 	  }
@@ -109,7 +144,7 @@ function renderContractEvent(v) {
 	template = "\
     <a href='#/' data-id='{{ID}}' data-type='contract'><li class='vertical-align-top'>\
       <div class='display-inline-block w-10 f-200 text-center mt-025'>\
-        ❕\
+        <img src='img/event.png' class='w-75'>\
       </div>\
       <div class='display-inline-block vertical-align-top f-100 mt-05 w-80'>\
         <div class='f-75 color-gray mb-0'>Contract Event Match</div>\
@@ -127,7 +162,7 @@ function renderContract(v) {
 	template = "\
     <a href='#/' data-id='{{ID}}' data-type='contract'><li class='vertical-align-top'>\
       <div class='display-inline-block w-10 f-200 text-center mt-025 mb-025'>\
-        📄\
+        <img src='img/contract.png' class='w-75'>\
       </div>\
       <div class='display-inline-block vertical-align-top f-100 mt-05 w-80'>\
         <div class='f-75 color-gray mb-0'>Contract Match</div>\
@@ -495,5 +530,8 @@ $(document).ready(function() {
 		  return;
 		}
 		timeout = setTimeout(search,500)
+	});
+	$('input[type="checkbox"]').change(function() {
+		research($('#searchbar').val());
 	});
 });
