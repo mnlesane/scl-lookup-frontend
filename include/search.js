@@ -32,6 +32,9 @@ function search() {
 	console.log('Search for "'+queryString+"'");
 	queryString = queryString.replace(/"/g,"'");
 	
+//	if(queryString.split(' ').length) {
+//	}
+	
 	incSubgraph = $('#search-subgraph').is(':checked');
 	incSubgraphDeployment = $('#search-subgraphDeployment').is(':checked');
 	incContract = $('#search-contract').is(':checked');
@@ -249,7 +252,6 @@ function detailContract(id) {
 	    contentType: "application/json"
 	}).done(function(e) {
 		var c = e.data.contracts[0];
-		console.log(e);
 		
 		var template = `
 		<div class='w-100'>
@@ -290,9 +292,7 @@ function detailContract(id) {
 				versions[sv.id] = sv;
 			});		
 		});
-		console.log(versions);
 		versionReplace = "";
-		console.log(versions);
 		$.each(versions,function(k,sv) {
 			cdTemplate = `
 <div class='w-100 display-inline-block border-darkgray p-05 m-05'>
@@ -491,6 +491,8 @@ function detailSubgraph(id,deploymentID = "") {
 				.replaceAll('{{IPFSHASH}}',sv.subgraphDeployment.ipfsHash)
 				.replace('{{NETWORK}}',sv.subgraphDeployment.network.id)
 				.replace('{{CONTRACTS}}',contractReplace)
+				.replace('{{SUBGRAPHID}}',v.id)
+				.replace('{{VERSIONID}}',sv.version)
 				;
 		});
 		append = append.replace('{{VERSIONS}}',versionReplace);
@@ -499,6 +501,7 @@ function detailSubgraph(id,deploymentID = "") {
 }
 
 $(document).ready(function() {
+	$('.quickSearch').hide();
 	$('#searchResults').on("click","li",function(e) {
 	  var id = $(this).parent().data('id');
 	  var type = $(this).parent().data('type');
