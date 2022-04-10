@@ -345,6 +345,9 @@ function detailContract(id) {
 	    <a href='#/' onclick='research("\\"{{NAME}}\\"");'>
 	      <img src='img/search.png' class='w-3 ml-05'>
 	    </a>
+	    <a href='#/' onclick='detailSubgraph("{{SUBGRAPHID}}");'>
+	      <img src='img/view.png' class='w-3 ml-05'>
+	    </a>
 	    </div>
 	    <div class='f-100 color-darkgray font-weight-bold'>
 	      {{VERSION}}
@@ -356,7 +359,7 @@ function detailContract(id) {
 				.replace('{{IMAGE}}',sv.subgraph.image)
 				.replaceAll('{{NAME}}',sv.subgraph.displayName)
 				.replace('{{VERSION}}',sv.label)
-				.replace('{{SUBGRAPHID}}',sv.subgraph.id)
+				.replaceAll('{{SUBGRAPHID}}',sv.subgraph.id)
 				.replace('{{VNUM}}',sv.version)
 				.replace('{{SIGNAL}}',(sv.subgraph.signalledTokens !== null ? sv.subgraph.signalledTokens : 0)/Math.pow(10,18))
 				;
@@ -502,6 +505,9 @@ function detailSubgraph(id,deploymentID = "") {
 	    </a>
 	    <a href='#/' onclick='research("{{CADDR}}");'>
 	      <img src='img/search.png' class='w-3 ml-05'>
+	    </a>
+	    <a href='#/' onclick='detailContract("{{CADDR}}");'>
+	      <img src='img/view.png' class='w-3 ml-05'>
 	    </a>
 	  </div>
 	  <div>
