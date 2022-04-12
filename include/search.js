@@ -339,14 +339,14 @@ function detailContract(id) {
 	  <div class='w-10 display-inline-block'>
 	    <img src='{{IMAGE}}' class='w-75'>
 	  </div>
-	  <div class='display-inline-block vertical-align-top'>
+	  <div class='display-inline-block vertical-align-top w-80'>
 	    <div class='f-125 font-weight-bold'>
 	      <a href='https://thegraph.com/explorer/subgraph?id={{SUBGRAPHID}}&v={{VNUM}}' target='_blank'>{{NAME}}</a>
-	    <a href='#/' onclick='research("\\"{{NAME}}\\"");'>
-	      <img src='img/search.png' class='w-3 ml-05'>
+	    <a href='#/' onclick='research("\\"{{NAME}}\\""); return false;'>
+	      <img src='img/search.png' class='icon ml-05' title='Search'>
 	    </a>
-	    <a href='#/' onclick='detailSubgraph("{{SUBGRAPHID}}");'>
-	      <img src='img/view.png' class='w-3 ml-05'>
+	    <a href='#/' onclick='detailSubgraph("{{SUBGRAPHID}}"); return false;'>
+	      <img src='img/view.png' class='icon ml-05' title='View Details'>
 	    </a>
 	    </div>
 	    <div class='f-100 color-darkgray font-weight-bold'>
@@ -500,14 +500,14 @@ function detailSubgraph(id,deploymentID = "") {
 	<div class='contractBox border-darkgray p-05 mb-05'>
 	  <div class='f-100 font-weight-bold mb-025'>
 	    Contract: <a href='https://etherscan.io/address/{{CADDR}}' target='_blank'>{{CADDR}}</a>
-	    <a href='#/' onclick='navigator.clipboard.writeText("{{CADDR}}").then(() => {});'>
-	      <img src='img/copy.png' class='w-3 ml-05'>
+	    <a href='#/' onclick='navigator.clipboard.writeText("{{CADDR}}").then(() => {}); return false;'>
+	      <img src='img/copy.png' class='icon ml-05' title='Copy'>
 	    </a>
-	    <a href='#/' onclick='research("{{CADDR}}");'>
-	      <img src='img/search.png' class='w-3 ml-05'>
+	    <a href='#/' onclick='research("{{CADDR}}"); return false;'>
+	      <img src='img/search.png' class='icon ml-05' title='Search'>
 	    </a>
-	    <a href='#/' onclick='detailContract("{{CADDR}}");'>
-	      <img src='img/view.png' class='w-3 ml-05'>
+	    <a href='#/' onclick='detailContract("{{CADDR}}"); return false;'>
+	      <img src='img/view.png' class='icon ml-05' title='View Details'>
 	    </a>
 	  </div>
 	  <div>

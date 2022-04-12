@@ -4,52 +4,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/cogrt.png">
     <link rel="stylesheet" href="include/style.css">
+    <link rel="stylesheet" href="include/bootstrap.min.css">
     <script type='text/javascript' src='include/jquery-1.10.2.js'></script>
     <script type='text/javascript' src='include/search.js'></script>
   </head>
   <body>
-    <div class='table w-100' style='height:100%'>
-      <div class='row'>
-        <div class='col w-15'>
+    <div class='container-fluid h-100 m-0 p-0'>
+      <div class='row w-100 m-0'>
+        <div class='col-xl-2 w-md-12 text-center text-md-left m-0 p-0'>
           <a href='./'>
-            <img src='img/scl.png'>
+            <img src='img/scl-1.png' class='w-md-auto w-45' style='max-height:100%; width:auto;'>
           </a>
         </div>
-        <div class='col'>
-          <div class='m-1'>
-            <div class='f-70 bg-lightgray p-1 mb-2 info'>
-            Subgraph Contract Lookup allows for more detailed searching of subgraphs on <a href='http://thegraph.com/explorer'>The Graph's mainnet</a>, including contract addresses and events.  Its subgraph can currently be accessed <a href='https://thegraph.com/hosted-service/subgraph/mnlesane/subgraph-contract-lookup'>here</a>.
-            </div>
-            <div id='search-filter' class='font-weight-bold m-0 mb-05 w-40 p-025'>
-              <span class='f-75'>Search:</span>
-              <input type="checkbox" id="search-subgraph" checked><div>Subgraphs</div>
-              <input type="checkbox" id="search-subgraphDeployment" checked><div>Deployments</div>
-              <input type="checkbox" id="search-contract" checked><div>Contracts</div>
-              <input type="checkbox" id="search-contractEvent" checked><div>Events</div>
-            </div>
-            <div class='search'>
-              <div class='searchbox display-inline-block w-45 vertical-align-top'>
-                <input type='text' id='searchbar' class='w-100' placeholder='ex: Livepeer'>
-                <div class='quicksearch bg-offwhite'>
-                  <ul class='' style='display:none;' id='searchResults'>
+        <div class='col-md m-0 p-0'>
+          <div class='container-fluid p-0 m-0'>
+            <div class='row m-0'>
+              <div class='col f-70 bg-lightgray p-1 mb-md-2 mb-0 info p-md-2'>
+              Subgraph Contract Lookup allows for more detailed searching of subgraphs on <a href='http://thegraph.com/explorer'>The Graph's mainnet</a>, including contract addresses and events.  Its subgraph can currently be accessed <a href='https://thegraph.com/hosted-service/subgraph/mnlesane/subgraph-contract-lookup'>here</a>.
+              </div>
+            </div> 
+            <div class='row m-0'>
+              <div class='col-12 col-md-6 p-0 mb-0 mb-md-1 sm-center text-md-left'>
+                <div class='d-inline-block w-xs-100'>
+                  <div class='bg-offwhite bg-sm-white f-100 f-md-75 font-weight-bold d-md-inline d-block mb-05 p-2 p-md-0'>Search:</div>
+                </div>
+                  <!--d-inline-grid d-md-inline w-45 w-md-auto text-left-->
+                <div class='d-inline-block'>
+                  <ul id='search-filter' class='font-weight-bold m-0 mb-05 w-100 w-md-100 p-025 d-inline p-0'>
+                    <li class='w-xs-50 p-0 m-0'>
+                      <input type="checkbox" id="search-subgraph" checked><label class='f-100 f-md-75 ml-05'>Subgraphs</label>
+                    </li><li class='w-xs-50 p-0 m-0'>
+                      <input type="checkbox" id="search-subgraphDeployment" checked><label class='f-100 f-md-75 ml-05'>Deployments</label>
+                    </li>
+                    <li class='w-xs-50 p-0 m-0'>
+                      <input type="checkbox" id="search-contract" checked><label class='f-100 f-md-75 ml-05'>Contracts</label>
+                    </li><li class='w-xs-50 p-0 m-0'>
+                      <input type="checkbox" id="search-contractEvent" checked><label class='f-100 f-md-75 ml-05'>Events</label>
+                    </li>
                   </ul>
                 </div>
               </div>
-              <div id='searchDetail' class='w-50 display-inline-block bg-offwhite p-1 f-75 vertical-align-top'>
-                Select a search result option to see more details.
+            </div>
+            <div class='row m-0'>
+              <div class='col-12 col-md-6 m-0 p-0'>
+                <div class='search'>
+                  <div class='searchbox d-inline-block w-100 vertical-align-top'>
+                    <input type='text' id='searchbar' class='w-100' placeholder='ex: Livepeer'>
+                    <div class='quicksearch bg-offwhite'>
+                      <ul class='' style='display:none;' id='searchResults'>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <!--
-              <div class='display-inline vertical-align-top'>
-                <button>Search</button>
+              <div class='col-12 col-md-6 searchDetail-container bg-offwhite'>
+                <div id='searchDetail' class='w-100 d-inline-block pt-2 pb-2 f-75 vertical-align-top'>
+                  Select a search result option to see more details.
+                </div>
               </div>
-              -->
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class='info w-100 bg-lightgray display-inline-block text-center f-75'>
-      <a href='https://github.com/mnlesane/subgraph-contract-lookup' target='_blank'>Github</a> | <a href='https://twitter.com/lesaisne' target='_blank'>Twitter</a> 
+     <div class='info w-100 bg-lightgray text-center f-75'>
+       <div class='col'>
+        <a href='https://github.com/mnlesane/subgraph-contract-lookup' target='_blank'>Github</a> | <a href='https://twitter.com/lesaisne' target='_blank'>Twitter</a> 
+       </div>
+     </div>
     </div>
   </body>
 </html>
