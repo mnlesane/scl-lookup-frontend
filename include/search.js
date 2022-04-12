@@ -500,15 +500,17 @@ function detailSubgraph(id,deploymentID = "") {
 	<div class='contractBox border-darkgray p-05 mb-05'>
 	  <div class='f-100 font-weight-bold mb-025'>
 	    Contract: <a href='https://etherscan.io/address/{{CADDR}}' target='_blank'>{{CADDR}}</a>
-	    <a href='#/' onclick='navigator.clipboard.writeText("{{CADDR}}").then(() => {}); return false;'>
-	      <img src='img/copy.png' class='icon ml-05' title='Copy'>
-	    </a>
-	    <a href='#/' onclick='research("{{CADDR}}"); return false;'>
-	      <img src='img/search.png' class='icon ml-05' title='Search'>
-	    </a>
-	    <a href='#/' onclick='detailContract("{{CADDR}}"); return false;'>
-	      <img src='img/view.png' class='icon ml-05' title='View Details'>
-	    </a>
+	    <div class='d-inline-block'>
+	      <a href='#/' onclick='navigator.clipboard.writeText("{{CADDR}}").then(() => {}); return false;'>
+	        <img src='img/copy.png' class='icon ml-05' title='Copy'>
+	      </a>
+	      <a href='#/' onclick='research("{{CADDR}}"); return false;'>
+	        <img src='img/search.png' class='icon ml-05' title='Search'>
+	      </a>
+	      <a href='#/' onclick='detailContract("{{CADDR}}"); return false;'>
+	        <img src='img/view.png' class='icon ml-05' title='View Details'>
+	      </a>
+	    </div>
 	  </div>
 	  <div>
 	    <b>Events:</b>
