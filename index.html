@@ -9,22 +9,27 @@
     <script type='text/javascript' src='include/search.js'></script>
   </head>
   <body>
-    <div class='container-fluid h-100 m-0 p-0'>
-      <div class='row w-100 m-0'>
-        <div class='col-xl-2 w-md-12 text-center text-md-left m-0 p-0'>
+    <div class='container-fluid m-0 p-0'>
+      <div class='row w-100 m-0 h-100'>
+        <div class='col-xl-2 col-md-3 col-sm-4 center text-sm-left m-0 p-0'>
           <a href='./'>
             <img src='img/scl-1.png' class='w-md-auto w-45' style='max-height:100%; width:auto;'>
           </a>
         </div>
+        <div class='col m-0 p-0 d-md-none'>
+          <div class='f-70 bg-lightgray p-1 mb-md-2 mb-0 info'>
+              Subgraph Contract Lookup allows for more detailed searching of subgraphs on <a href='http://thegraph.com/explorer'>The Graph's mainnet</a>, including contract addresses and events.  Its subgraph can currently be accessed <a href='https://thegraph.com/hosted-service/subgraph/mnlesane/subgraph-contract-lookup'>here</a>.
+           </div>
+        </div>
         <div class='col-md m-0 p-0'>
           <div class='container-fluid p-0 m-0'>
             <div class='row m-0'>
-              <div class='col f-70 bg-lightgray p-1 mb-md-2 mb-0 info p-md-2'>
+              <div class='col f-70 bg-lightgray p-1 mb-md-2 mb-0 info p-1 d-none d-md-block'>
               Subgraph Contract Lookup allows for more detailed searching of subgraphs on <a href='http://thegraph.com/explorer'>The Graph's mainnet</a>, including contract addresses and events.  Its subgraph can currently be accessed <a href='https://thegraph.com/hosted-service/subgraph/mnlesane/subgraph-contract-lookup'>here</a>.
               </div>
             </div> 
             <div class='row m-0'>
-              <div class='col-12 col-md-6 p-0 mb-0 mb-md-1 sm-center text-md-left'>
+              <div class='col-12 p-0 mb-0 mb-md-1 sm-center text-md-left'>
                 <div class='d-inline-block w-xs-100'>
                   <div class='bg-offwhite bg-sm-white f-100 f-md-75 font-weight-bold d-md-inline d-block mb-05 p-2 p-md-0'>Search:</div>
                 </div>
@@ -46,7 +51,7 @@
               </div>
             </div>
             <div class='row m-0'>
-              <div class='col-12 col-md-6 m-0 p-0'>
+              <div class='col-12 col-xl-6 m-0 p-0'>
                 <div class='search'>
                   <div class='searchbox d-inline-block w-100 vertical-align-top'>
                     <input type='text' id='searchbar' class='w-100' placeholder='ex: Livepeer'>
@@ -57,7 +62,7 @@
                   </div>
                 </div>
               </div>
-              <div class='col-12 col-md-6 searchDetail-container bg-offwhite'>
+              <div class='col-12 col-xl-6 searchDetail-container bg-offwhite'>
                 <div id='searchDetail' class='w-100 d-inline-block pt-2 pb-2 f-75 vertical-align-top'>
                   Select a search result option to see more details.
                 </div>
@@ -66,11 +71,11 @@
           </div>
         </div>
       </div>
-     <div class='info w-100 bg-lightgray text-center f-75'>
-       <div class='col'>
-        <a href='https://github.com/mnlesane/subgraph-contract-lookup' target='_blank'>Github</a> | <a href='https://twitter.com/lesaisne' target='_blank'>Twitter</a> 
-       </div>
-     </div>
     </div>
+    <!--
+     <div class='info row w-100 bg-lightgray text-center f-75' style='position:static;'>
+      <a href='https://github.com/mnlesane/subgraph-contract-lookup' target='_blank'>Github</a> | <a href='https://twitter.com/lesaisne' target='_blank'>Twitter</a> 
+     </div>
+     -->
   </body>
 </html>
