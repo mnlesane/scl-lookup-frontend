@@ -209,3 +209,7 @@ label { line-height:2em; vertical-align:middle; }
 .center { text-align:center; }
 
 #searchDetail { word-wrap: break-word; }
+
+.text-darkred {
+  color:#800;
+}

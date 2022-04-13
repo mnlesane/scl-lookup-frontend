@@ -129,8 +129,7 @@ function search() {
 		$('#searchResults').html('');
 			  
 		if(!e.hasOwnProperty('data')) {
-			console.log(e);
-			renderNoResults();
+			renderNoResults(e.errors[0].message);
 			return;
 		} else {
 			data = e.data;
@@ -172,16 +171,20 @@ function search() {
 		$('.quickSearch').show();
 	});
 }
-function renderNoResults() {
-	template = "\
-    <a href='#/'><li class='vertical-align-top'>\
-      <div class='display-inline-block vertical-align-top f-100 m-1 w-80'>\
-        <div class='f-100 color-gray mb-0'>No search results found.</div>\
-      </div>\
-    </li></a>\
-	";
-	append = template;
+function renderNoResults(message = "") {
+	template = `
+    <a href='#/'><li class='vertical-align-top'>
+      <div class='display-inline-block vertical-align-top f-100 m-1 w-80'>
+        <div class='f-100 color-gray mb-0'>No search results found.</div>
+      </div>
+      {{MESSAGE}}
+    </li></a>
+	`;
+	var messageReplace = message.length ? '<div class="error f-70 text-darkred pl-05 pb-1"><b>Details:</b> '+message+'</div>' : "";
+	append = template.replace('{{MESSAGE}}',messageReplace);
 	$('#searchResults').append(append);
+	$('#searchResults').show();
+	$('.quickSearch').show();
 }
 
 function renderContractEvent(v) {
@@ -486,7 +489,6 @@ function detailSubgraph(id,deploymentID = "") {
 			;
 		var versionReplace = "";
 		$.each(v.versions,function(k,sv) {
-			console.log(sv.entityVersion);
 			if(sv.entityVersion != 2) return;
 			if(deploymentID && sv.subgraphDeployment.id != deploymentID) return;
 			versionTemplate = `
