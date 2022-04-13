@@ -100,6 +100,7 @@ function search() {
     codeRepository
     website
     signalledTokens
+    entityVersion
   }
   `:``)
   +(incSubgraphDeployment  ? `
@@ -108,6 +109,7 @@ function search() {
     originalName
     versions {
       label
+      entityVersion
     }
     subgraph {
       id
@@ -117,6 +119,7 @@ function search() {
       codeRepository
       website
       signalledTokens
+      entityVersion
     }
   }
   `:``)+`
@@ -135,6 +138,9 @@ function search() {
 		  
 		if(data.hasOwnProperty('subgraphSearch')) {
 			$.each(data.subgraphSearch,function(k,v) {
+				if(v.entityVersion != 2) {
+					return;
+				}
 				renderSubgraph(v);
 			});
 		}
@@ -278,6 +284,7 @@ function detailContract(id) {
       versions {
         id
         version
+        entityVersion
         label
          subgraph {
           id
@@ -329,6 +336,7 @@ function detailContract(id) {
 		var versions = {};
 		$.each(c.subgraphDeployment,function(k,d) {
 			$.each(d.versions,function(k,sv) {
+				if(sv.entityVersion != 2) return;
 				versions[sv.id] = sv;
 			});		
 		});
@@ -388,7 +396,7 @@ function detailSubgraph(id,deploymentID = "") {
 	
 	var searchQuery = `
 {
-  subgraphs(where:{id:"`+id+`"}) {
+  subgraphs(where:{id:"`+id+`",entityVersion:2}) {
     id
     owner { id }
     displayName
@@ -405,6 +413,7 @@ function detailSubgraph(id,deploymentID = "") {
       metadataHash
       description
       label
+      entityVersion
       subgraphDeployment {
         id
         ipfsHash
@@ -477,6 +486,8 @@ function detailSubgraph(id,deploymentID = "") {
 			;
 		var versionReplace = "";
 		$.each(v.versions,function(k,sv) {
+			console.log(sv.entityVersion);
+			if(sv.entityVersion != 2) return;
 			if(deploymentID && sv.subgraphDeployment.id != deploymentID) return;
 			versionTemplate = `
 	<div class='versionBox bg-lightgray p-05 mb-05'>
