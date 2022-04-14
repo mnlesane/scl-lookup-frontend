@@ -101,6 +101,7 @@ function search() {
     website
     signalledTokens
     entityVersion
+    active
   }
   `:``)
   +(incSubgraphDeployment  ? `
@@ -110,16 +111,17 @@ function search() {
     versions {
       label
       entityVersion
-    }
-    subgraph {
-      id
-      displayName
-      description
-      image
-      codeRepository
-      website
-      signalledTokens
-      entityVersion
+        subgraph {
+          id
+          displayName
+          description
+          image
+          codeRepository
+          website
+          signalledTokens
+          entityVersion
+          active
+        }
     }
   }
   `:``)+`
@@ -158,7 +160,12 @@ function search() {
 		  
 		if(data.hasOwnProperty('subgraphDeploymentSearch')) {
 			$.each(data.subgraphDeploymentSearch,function(k,v) {
-				renderSubgraphDeployment(v);
+				$.each(v.versions,function(k,sv) {
+					if(sv.entityVersion != 2) {
+						return;
+					}
+					renderSubgraphDeployment(sv,v);
+				});
 			});
 		}
 		 
@@ -230,7 +237,7 @@ function renderSubgraph(v) {
         <img src='{{IMG}}' class='w-75 m-05'>\
       </div>\
       <div class='display-inline-block vertical-align-top f-100 mt-025 w-80'>\
-        <div class='f-75 color-gray mb-0'>Subgraph Match</div>\
+        <div class='f-75 color-gray mb-0'>Subgraph Match {{STATUS}}</div>\
         <div class='mb-025'><b>{{NAME}}</b></div>\
         <div class='f-75 mb-1'>{{DESC}}</div>\
       </div>\
@@ -243,11 +250,12 @@ function renderSubgraph(v) {
 		.replace('{{NAME}}',v.displayName)
 		.replace('{{DESC}}',truncate(v.description,128))
 		.replaceAll('{{SIGNAL}}',(v.signalledTokens !== null ? v.signalledTokens : 0)/Math.pow(10,18))
+		.replace('{{STATUS}}',v.active ? '' : '<b>(Deprecated)</b>')
 		;
 	$('#searchResults').append(append);
 }
 
-function renderSubgraphDeployment(v) {
+function renderSubgraphDeployment(v,deployment) {
 	// data-debug='"+JSON.stringify(v)+"'
 	
 	template = "\
@@ -256,20 +264,22 @@ function renderSubgraphDeployment(v) {
         <img src='{{IMG}}' class='w-75 m-05'>\
       </div>\
       <div class='display-inline-block vertical-align-top f-100 mt-025 w-80'>\
-        <div class='f-75 color-gray mb-0'>Subgraph Deployment Match</div>\
-        <div class='mb-025'><b>{{NAME}}</b></div>\
+        <div class='f-75 color-gray mb-0'>Subgraph Version Match {{STATUS}}</div>\
+        <div><b>{{NAME}}</b></div><div class='mb-025 font-weight-bold f-75'>{{VERSION}}</div>\
         <div class='f-75 mb-1'>{{DESC}}</div>\
       </div>\
     </li></a>\
 	";
 	if(v.description === null) v.description = "";
 	append = template
-		.replace('{{ID}}',v.id)
+		.replace('{{ID}}',deployment.id)
 		.replace('{{IMG}}',v.subgraph.image)
-		.replace('{{NAME}}',v.originalName ? v.originalName : v.subgraph.displayName)
+		.replace('{{NAME}}',deployment.originalName ? deployment.originalName : v.subgraph.displayName)
 		.replace('{{DESC}}',truncate(v.subgraph.description,128))
 		.replace('{{SUBGRAPHID}}',v.subgraph.id)
+		.replace('{{VERSION}}',v.label)
 		.replaceAll('{{SIGNAL}}',(v.subgraph.signalledTokens !== null ? v.subgraph.signalledTokens : 0)/Math.pow(10,18))
+		.replace('{{STATUS}}',v.subgraph.active ? '' : '<b>(Deprecated)</b>')
 		;
 	$('#searchResults').append(append);
 }
@@ -353,6 +363,7 @@ function detailContract(id) {
 	  <div class='display-inline-block vertical-align-top w-80'>
 	    <div class='f-125 font-weight-bold'>
 	      <a href='https://thegraph.com/explorer/subgraph?id={{SUBGRAPHID}}&v={{VNUM}}' target='_blank'>{{NAME}}</a>
+	      {{STATUS}}
 	    <a href='#/' onclick='research("\\"{{NAME}}\\""); return false;'>
 	      <img src='img/search.png' class='icon ml-05' title='Search'>
 	    </a>
@@ -373,6 +384,7 @@ function detailContract(id) {
 				.replaceAll('{{SUBGRAPHID}}',sv.subgraph.id)
 				.replace('{{VNUM}}',sv.version)
 				.replace('{{SIGNAL}}',(sv.subgraph.signalledTokens !== null ? sv.subgraph.signalledTokens : 0)/Math.pow(10,18))
+				.replace('{{STATUS}}',sv.subgraph.active ? '' : '<span class="color-gray f-75">(Deprecated)</span>')
 				;
 			
 			var append = template
@@ -409,6 +421,7 @@ function detailSubgraph(id,deploymentID = "") {
     website
     createdAt
     updatedAt
+    active
     versions {
       id
       version
@@ -461,6 +474,7 @@ function detailSubgraph(id,deploymentID = "") {
 	      </div>
 	      <div class='display-inline-block color-darkgray w-50'>Created: {{CDATE}}</div>
 	      <div class='display-inline-block color-darkgray'>Updated: {{UDATE}}</div>
+	      <div class='display-inline-block color-darkgray w-50'>Status: <span class="color-darkgray"><b>{{STATUS}}</b></span></div>
 	    </div>
 	  </div>
 	  <div class='w-100 display-inline-block'>
@@ -486,6 +500,7 @@ function detailSubgraph(id,deploymentID = "") {
 			.replace('{{WEBSITE}}',v.website)
 			.replace('{{ID}}',v.id)
 			.replace('{{VERSION_LABEL}}',deploymentID ? "Subgraph Deployment Detail" : "Versions")
+			.replace('{{STATUS}}',v.active ? 'Active' : 'Deprecated')
 			;
 		var versionReplace = "";
 		$.each(v.versions,function(k,sv) {
