@@ -316,7 +316,7 @@ function detailContract(id) {
 		var template = `
 		<div class='w-100'>
 		  <div class='mb-1'>
-		    <span class='f-125 font-weight-bold'>{{CADDR}}</span><br/>
+		    <span class='f-125 font-weight-bold'><a href='https://etherscan.io/address/{{CADDR}}' target='_blank'>{{CADDR}}</a></span><br/>
 		    <span class='f-100 color-darkgray'>Contract</span>
 		  </div>
 		  <div class='f-100 font-weight-bold'>
@@ -458,7 +458,7 @@ function detailSubgraph(id,deploymentID = "") {
 	      </a>
 	    </div>
 	    <div class='vertical-align-top display-inline-block mt-1 ml-05'>
-	      <div class='f-150 font-weight-bold'>{{NAME}}</div>
+	      <div class='f-150 font-weight-bold'><a href='https://thegraph.com/explorer/subgraph?id={{ID}}' target='_blank'>{{NAME}}</a></div>
 	      <div class='color-darkgray f-100 mb-05'>
 		Subgraph owned by <a href='https://thegraph.com/explorer/profile?id={{ADDRESS}}' target='_blank' class='font-weight-bold'>{{ADDRESS}}</a>
 	      </div>
@@ -498,7 +498,7 @@ function detailSubgraph(id,deploymentID = "") {
 			.replace('{{UDATE}}',ymdhis(v.updatedAt))
 			.replace('{{REPO}}',v.codeRepository)
 			.replace('{{WEBSITE}}',v.website)
-			.replace('{{ID}}',v.id)
+			.replaceAll('{{ID}}',v.id)
 			.replace('{{VERSION_LABEL}}',deploymentID ? "Subgraph Deployment Detail" : "Versions")
 			.replace('{{STATUS}}',v.active ? 'Active' : 'Deprecated')
 			;
