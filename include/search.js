@@ -78,7 +78,7 @@ function search() {
 	var searchQuery = `{
 	`
 	+(incContractEvent ? `
-  contractEventSearch(text:"`+queryString+`") {
+  contractEventSearch(text:"`+queryString+`",first:1000) {
     id
     event
     contract {
@@ -87,12 +87,12 @@ function search() {
   }
   `:``)
   +(incContract ? `
-  contractSearch(text:"`+queryString+`") {
+  contractSearch(text:"`+queryString+`",first:1000) {
     id
   }
   `:``)
   +(incSubgraph ? `
-  subgraphSearch(text:"`+queryString+`") {
+  subgraphSearch(text:"`+queryString+`",first:1000) {
     id
     displayName
     description
@@ -105,7 +105,7 @@ function search() {
   }
   `:``)
   +(incSubgraphDeployment  ? `
-  subgraphDeploymentSearch(text:"`+queryString+`") {
+  subgraphDeploymentSearch(text:"`+queryString+`",first:1000) {
     id
     originalName
     versions {
