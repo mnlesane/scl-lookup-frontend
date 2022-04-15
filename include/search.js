@@ -301,6 +301,7 @@ function detailContract(id) {
         label
          subgraph {
           id
+          active
           image
           displayName
           signalledTokens
