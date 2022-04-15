@@ -99,7 +99,7 @@ function search() {
     image
     codeRepository
     website
-    signalledTokens
+    currentSignalledTokens
     entityVersion
     active
   }
@@ -118,7 +118,7 @@ function search() {
           image
           codeRepository
           website
-          signalledTokens
+          currentSignalledTokens
           entityVersion
           active
         }
@@ -249,7 +249,7 @@ function renderSubgraph(v) {
 		.replace('{{IMG}}',v.image)
 		.replace('{{NAME}}',v.displayName)
 		.replace('{{DESC}}',truncate(v.description,128))
-		.replaceAll('{{SIGNAL}}',(v.signalledTokens !== null ? v.signalledTokens : 0)/Math.pow(10,18))
+		.replaceAll('{{SIGNAL}}',(v.currentSignalledTokens !== null ? v.currentSignalledTokens : 0)/Math.pow(10,18))
 		.replace('{{STATUS}}',v.active ? '' : '<b>(Deprecated)</b>')
 		;
 	$('#searchResults').append(append);
@@ -278,7 +278,7 @@ function renderSubgraphDeployment(v,deployment) {
 		.replace('{{DESC}}',truncate(v.subgraph.description,128))
 		.replace('{{SUBGRAPHID}}',v.subgraph.id)
 		.replace('{{VERSION}}',v.label)
-		.replaceAll('{{SIGNAL}}',(v.subgraph.signalledTokens !== null ? v.subgraph.signalledTokens : 0)/Math.pow(10,18))
+		.replaceAll('{{SIGNAL}}',(v.subgraph.currentSignalledTokens !== null ? v.subgraph.currentSignalledTokens : 0)/Math.pow(10,18))
 		.replace('{{STATUS}}',v.subgraph.active ? '' : '<b>(Deprecated)</b>')
 		;
 	$('#searchResults').append(append);
@@ -304,6 +304,7 @@ function detailContract(id) {
           image
           displayName
           signalledTokens
+          currentSignalledTokens
         }
       }
     }
@@ -383,7 +384,7 @@ function detailContract(id) {
 				.replace('{{VERSION}}',sv.label)
 				.replaceAll('{{SUBGRAPHID}}',sv.subgraph.id)
 				.replace('{{VNUM}}',sv.version)
-				.replace('{{SIGNAL}}',(sv.subgraph.signalledTokens !== null ? sv.subgraph.signalledTokens : 0)/Math.pow(10,18))
+				.replace('{{SIGNAL}}',(sv.subgraph.currentSignalledTokens !== null ? sv.subgraph.currentSignalledTokens : 0)/Math.pow(10,18))
 				.replace('{{STATUS}}',sv.subgraph.active ? '' : '<span class="color-gray f-75">(Deprecated)</span>')
 				;
 			
